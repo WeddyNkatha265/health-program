@@ -68,6 +68,12 @@ def client_profile(client_id):
         'programs': [program.name for program in client.enrolled_programs]
     })
 
+@app.route('/programs/all', methods=['GET'])
+def get_all_programs():
+    programs = HealthProgram.query.all()
+    return jsonify([{'id': p.id, 'name': p.name} for p in programs])
+
+
 # Only run when direct
 if __name__ == '__main__':
     with app.app_context():
